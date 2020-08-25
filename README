@@ -1,0 +1,8 @@
+A client for the graphql API provided by AniList.co (https://anilist.co/home)
+In scala, purely functional using caliban and ZIO.
+
+Also using alternative build system, seed.
+
+
+
+License assumption for now: everything is AGPL3+ as usual.

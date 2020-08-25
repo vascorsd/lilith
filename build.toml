@@ -1,0 +1,67 @@
+[project]
+scalaVersion       = "2.13.3"
+
+compilerDeps = [
+    ["com.olegpy",                 "better-monadic-for",       "0.3.1"            ],
+    ["org.typelevel",              "kind-projector",           "0.11.0",    "full"],
+]
+scalaOptions = [
+    "-encoding", "UTF-8",
+    "-unchecked",
+    "-deprecation",
+    "-feature",
+
+    "-Yrangepos",
+    "-Ywarn-numeric-widen",
+    "-Ywarn-unused:imports",
+    "-Ywarn-value-discard",
+    "-Ywarn-dead-code",
+
+    "-Xlint:adapted-args",
+    "-Xlint:infer-any",
+    "-Xlint:missing-interpolator",
+    "-Xlint:private-shadow",
+    "-Xlint:type-parameter-shadow",
+]
+
+
+[module.client]
+root = "."
+moduleDeps = ["protocol"]
+sources = ["src/client"]
+targets = ["jvm"]
+scalaDeps = [
+    ["dev.zio",                       "zio",                 "1.0.1"],
+    ["dev.zio",                       "zio-streams",         "1.0.1"],
+    ["com.softwaremill.sttp.client",  "core",                "2.2.5"],
+    ["com.github.ghostdogpr",         "caliban-client",      "0.9.1"],
+]
+
+
+[module.protocol]
+root = "."
+sources = ["src/protocol"]
+targets = ["jvm"]
+scalaDeps = [
+    ["dev.zio",                       "zio",                 "1.0.1"],
+    ["dev.zio",                       "zio-streams",         "1.0.1"],
+    ["com.softwaremill.sttp.client",  "core",                "2.2.5"],
+    ["com.github.ghostdogpr",         "caliban-client",      "0.9.1"],
+    ["io.circe",                      "circe-core",         "0.12.3"],
+]
+
+
+[module.protocol.target.gen-scala]
+await = true
+root = "protocol"
+class = ["caliban-generator:jvm", "CalibanGenMain"]
+
+
+[module.caliban-generator]
+root = "."
+sources = ["src/caliban-generator"]
+targets = ["jvm"]
+scalaDeps = [
+    ["dev.zio",                       "zio",                 "1.0.1"],
+    ["com.github.ghostdogpr",         "caliban-tools",       "0.9.1"],
+]
